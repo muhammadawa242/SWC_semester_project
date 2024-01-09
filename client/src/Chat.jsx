@@ -14,7 +14,7 @@ export default function Chat() {
     const [offlinePeople, setOfflinePeople] = useState({}); //this is to set the state of offline people
     const [onlinePeople, setOnlinePeople] = useState({}); //this is to set the state of online people
     const [selectedUserId,setSelectedUserId] = useState(null); //this is to set the state of selected user
-    const {username,id,setUsername,setId} = useContext(UserContext); //this is to get the username and id from the UserContext
+    const {firstName,id,setFirstName,setId} = useContext(UserContext); //this is to get the username and id from the UserContext
     const [messages, setMessages] = useState([]);  //this is to set the state of messages
     const [newMessage,setNewMessage] = useState(''); //this is to set the state of new message
     const divUnderMessages = useRef(); //this is to scroll to the bottom of the messages
@@ -39,8 +39,8 @@ export default function Chat() {
 
     function showOnlinePeople(peopleArray) {
         const people = {}; //this is an object
-        peopleArray.forEach(({userId,username}) => { //this is a destructuring assignment
-            people[userId] = username; //this is to add the username to the people object
+        peopleArray.forEach(({userId,firstName}) => { //this is a destructuring assignment
+            people[userId] = firstName; //this is to add the username to the people object
         });
         setOnlinePeople(people); //this is to set the state of online people
     }
@@ -58,7 +58,7 @@ export default function Chat() {
         axios.post('/logout').then(() => {
             setWs(null);
             setId(null);
-            setUsername(null);
+            setFirstName(null);
         });
     }
 
@@ -141,7 +141,7 @@ export default function Chat() {
                     <Contact 
                     id = {userId} 
                     online = {true}
-                    username={onlinePeopleExclOurUser[userId]}
+                    firstName={onlinePeopleExclOurUser[userId]}
                     onClick = {() => setSelectedUserId(userId)}
                     selected = {userId === selectedUserId} />
                     ))}
@@ -150,7 +150,7 @@ export default function Chat() {
                     <Contact 
                     id = {userId} 
                      online = {false}
-                    username={offlinePeople[userId].username}
+                    firstName={offlinePeople[userId].username}
                     onClick = {() => setSelectedUserId(userId)}
                     selected = {userId === selectedUserId} />
                     ))}

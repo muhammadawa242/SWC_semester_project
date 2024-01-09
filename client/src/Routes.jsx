@@ -4,9 +4,9 @@ import RegisterAndLoginForm from "./RegisterAndLoginForm";
 import Chat from "./Chat";
 
 export default function Routes() {
-    const {username, id} = useContext(UserContext);
+    const {firstName, id} = useContext(UserContext);
 
-    if (username) {
+    if (firstName) {
         return <Chat />;
     }
     return(
