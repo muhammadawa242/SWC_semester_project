@@ -1,0 +1,11 @@
+.explore{
+    position: relative;
+    top: 5.4rem;
+}
+  
+.explore .container {
+    display: grid;
+    position: relative;
+    grid-template-columns: 18vw auto 20vw;
+    column-gap: 2rem;
+}
