@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import './Left.css'
 import {Link , NavLink } from 'react-router-dom';
 import Picture from '../../assets/profile-2.jpg'
+import ProfileCard from '../ProfileCard/ProfileCard';
 
 function Left() {
   return (
     <div className='left'>
       <Link to="/profile" className='profile'>
-
-        <div className="profile-photo">
+        <ProfileCard />
+        {/* <div className="profile-photo">
             <img src={Picture} />
         </div>
 
@@ -17,8 +18,9 @@ function Left() {
             <p className="text-muted">
                 @UserName
             </p>
-        </div>
+        </div> */}
       </Link>
+      
 
       <div className="sidebar">
 
@@ -82,9 +84,9 @@ function Left() {
           <span><i className="uil uil-palette"></i></span><h3>Theme</h3>
         </NavLink>
 
-        <NavLink className="menu-item" to="/settings" >
+        {/* <NavLink className="menu-item" to="/settings" >
           <span><i className="uil uil-setting"></i></span><h3>Setting</h3>
-        </NavLink>
+        </NavLink> */}
       </div>
 
       <label htmlFor="create-post" className='btn btn-primary'> Create Post </label>
