@@ -23,3 +23,49 @@ Basic Features of website:
 5) Real-time Chat:
 - Implement a real-time chat feature using Socket.io.
 Users can send and receive messages instantly
+
+
+## Backend API endpoints description:
+(Ignore the first letter in capital)
+
+- Auth/register
+	• Post
+	• Req data
+	• Res saved data
+- Auth/login
+	• Post
+	• Req -> Email, Password
+	• Res -> token, user data
+- Users/:id
+	• Get
+	• Req -> id
+	• Res -> user
+- Users/:id/friends
+	• Get
+	• Req -> id
+	• Res -> limited friend info
+- Users/:str/search_name + others
+	• Get
+	• Req -> string param
+	• Res -> limited searched users
+- Users/:id/:friend_id
+	• Patch
+	• Req -> id, friend_id
+	• Res  -> limited friend info
+	• Adds friends for both
+- Posts/
+	• Get
+	• Res -> all posts
+- Posts/
+	• Patch
+	• Req -> user_id, desc, pictuer_path
+	• Res -> all posts along updated one
+- Posts/:id/posts
+	• Get
+	• Req -> id param
+	• Res -> users' posts
+- Posts/:str/search_posts
+	• Get
+	• Req -> str param
+	• Res -> searched posts
+	
