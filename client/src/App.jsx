@@ -2,6 +2,7 @@ import React, { Profiler } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import SignUp from './Components/SignUp/SignUp.jsx'
+import Login from './Components/Login/Login.jsx'
 import Navbar from './Components/NavBar/Navbar.jsx'
 import Home from './Components/Home/Home.jsx'
 import Explore from './Components/Explore/Explore.jsx'
@@ -16,6 +17,7 @@ function App() {
     <div className="app">
       <Routes>
           <Route path="/" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route exact path="/navbar" element={<Navbar />} />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/explore" element={<Explore />} />
