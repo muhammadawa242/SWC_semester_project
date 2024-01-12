@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import "./SignUp.css"; // Import the corresponding CSS file
+import {register} from "../../apis"
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../state";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../apis";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,22 +15,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [picturePath, setPicturePath] = useState(null);
 
-  const register = async (values) => {
-    // this allows us to send form info with image
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const savedUser = await savedUserResponse.json();
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     // Validate fields and perform signup logic
@@ -63,8 +54,23 @@ const SignUp = () => {
         }
       );
 
+      const loggedIn = await login({
+        email: email,
+        password: password
+      });
+
+      if (loggedIn) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("home");
+      }
+
     }catch(err){
-      console.log("error in signup scripting " + err.message);
+      console.log("error in signup scripting " + err);
     }
   };
 
