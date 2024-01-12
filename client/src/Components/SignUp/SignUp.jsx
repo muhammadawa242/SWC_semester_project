@@ -8,9 +8,26 @@ const SignUp = () => {
   const [occupation, setOccupation] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [picturePath, setPicturePath] = useState(null);
 
-  const handleSignUp = () => {
+  const register = async (values) => {
+    // this allows us to send form info with image
+    const formData = new FormData();
+    for (let value in values) {
+      formData.append(value, values[value]);
+    }
+
+    const savedUserResponse = await fetch(
+      "http://localhost:3001/auth/register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const savedUser = await savedUserResponse.json();
+  };
+
+  const handleSignUp = async () => {
     // Validate fields and perform signup logic
     if (
       !firstName ||
@@ -32,12 +49,28 @@ const SignUp = () => {
     }
 
     // Perform signup logic (you can add API calls or other logic here)
-    alert("Signup successful!");
+    try{
+      await register(
+        {
+          firstName: firstName,
+          lastName: lastName,
+          location: location,
+          occupation: occupation,
+          email: email,
+          password: password,
+          picture: picturePath,
+          picturePath: picturePath.name
+        }
+      );
+
+    }catch(err){
+      console.log("error in signup scripting " + err.message);
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setProfilePicture(file);
+    setPicturePath(file);
   };
 
   return (
@@ -98,7 +131,7 @@ const SignUp = () => {
       </div>
       <div className="input-group">
         <label>Profile Picture:</label>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="file" accept="image/*" onChange={handleFileChange} name="picturePath" />
       </div>
       <button onClick={handleSignUp}>Sign Up</button>
     </div>
