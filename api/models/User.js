@@ -2,16 +2,46 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema(
 	{
-		firstName: String,
-        lastName: String,
-		email: String,
-		password: String,
+		firstName: {
+			type: String,
+			required: true,
+			min: 2,
+			max: 50,
+		},
+		lastName: {
+			type: String,
+			required: true,
+			min: 2,
+			max: 50,
+		},
+		email: {
+			type: String,
+			required: true,
+			max: 50,
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: true,
+			min: 5,
+		},
+		picturePath: {
+			type: String,
+			default: "",
+		},
+		friends: {
+			type: Array,
+			default: [],
+		},
 		location: String,
 		occupation: String,
-		picture: String,
+		viewedProfile: Number,
+		impressions: Number,
 	},
 	{ timestamps: true }
 );
 
-const UserModel = mongoose.model('User', UserSchema);
-module.exports = UserModel; // directly exporting the userModel threw an error on the nodemon terminal
+const UserModel = mongoose.model("User", UserSchema);
+
+module.exports =  UserModel;
+// module.exports = UserModel; // directly exporting the userModel threw an error on the nodemon terminal
