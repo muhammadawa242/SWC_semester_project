@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import "./SignUp.css"; // Import the corresponding CSS file
+import {register} from "../../apis"
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../state";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../apis";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -8,9 +13,12 @@ const SignUp = () => {
   const [occupation, setOccupation] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [picturePath, setPicturePath] = useState(null);
 
-  const handleSignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignUp = async () => {
     // Validate fields and perform signup logic
     if (
       !firstName ||
@@ -32,76 +40,112 @@ const SignUp = () => {
     }
 
     // Perform signup logic (you can add API calls or other logic here)
-    alert("Signup successful!");
+    try{
+      await register(
+        {
+          firstName: firstName,
+          lastName: lastName,
+          location: location,
+          occupation: occupation,
+          email: email,
+          password: password,
+          picture: picturePath,
+          picturePath: picturePath.name
+        }
+      );
+
+      const loggedIn = await login({
+        email: email,
+        password: password
+      });
+
+      if (loggedIn) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("home");
+      }
+
+    }catch(err){
+      console.log("error in signup scripting " + err);
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setProfilePicture(file);
+    setPicturePath(file);
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-header">
-        <h2 style={{ color: "darkblue" }}>AMS HUB</h2>
-      </div>
-      <h2>Sign Up</h2>
-      <div className="name-fields">
+    <>
+      <div className="signup-background" />
+
+      <div className="signup-container">
+        {/* Background container for the blurred image */}
+        <div className="signup-header">
+          <h2 style={{ color: "darkblue" }}>AMS HUB</h2>
+        </div>
+        <h2>Sign Up</h2>
+        <div className="name-fields">
+          <div className="special-input-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="special-input-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="input-group">
-          <label className="form-label">First Name:</label>
+          <label>Location:</label>
           <input
             type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         </div>
         <div className="input-group">
-          <label className="form-label">Last Name:</label>
+          <label>Occupation:</label>
           <input
             type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={occupation}
+            onChange={(e) => setOccupation(e.target.value)}
           />
         </div>
+        <div className="input-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Profile Picture:</label>
+          <input type="file" accept="image/*" onChange={handleFileChange} name="picturePath" />
+        </div>
+        <button onClick={handleSignUp}>Sign Up</button>
       </div>
-      <div className="input-group">
-        <label className="form-label">Location:</label>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Occupation:</label>
-        <input
-          type="text"
-          value={occupation}
-          onChange={(e) => setOccupation(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Profile Picture:</label>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-      </div>
-      <button onClick={handleSignUp}>Sign Up</button>
-    </div>
+    </>
   );
 };
 

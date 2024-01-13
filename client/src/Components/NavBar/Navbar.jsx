@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 // import { UilAngleDown } from 'react-icons/uil';
 import ProfileDropdown from '../DropDown/ProfileDropdown.jsx'
 import './NavBar.css'
-import ProfilePic from '../../assets/profile-1.jpg'
+import { useSelector } from 'react-redux'
 
 
 function Navbar() {
+  const imgName = useSelector(state => state.user.picturePath);
+
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const handleProfileClick = () => {
@@ -50,7 +52,7 @@ function Navbar() {
           <div className="create">
             {/* <label htmlFor="create-post" className='btn btn-primary'>Create</label> */}
             <div className="profile-photo " onClick={handleProfileClick}>
-              <img src={ProfilePic} alt="" />
+              <img src={`https://ams-hub-bucket.s3.ap-south-1.amazonaws.com/${imgName}`} alt="" />
               {/* <UilAngleDown className="dropdown-icon" /> */}
             </div>
 

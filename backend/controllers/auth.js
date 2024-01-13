@@ -10,8 +10,6 @@ export const register = async (req, res) => {
       lastName,
       email,
       password,
-      picturePath,
-      friends,
       location,
       occupation,
     } = req.body;
@@ -24,8 +22,7 @@ export const register = async (req, res) => {
       lastName,
       email,
       password: passwordHash,
-      picturePath,
-      friends,
+      picturePath: req.file.key,
       location,
       occupation,
     });
@@ -40,7 +37,11 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    var user = await User.findOne({ email: email });
+    
+    // convert mongoose document to json
+    user = user.toObject();
+
     if (!user) return res.status(400).json({ msg: "User does not exist. " });
 
     const isMatch = await bcrypt.compare(password, user.password);
