@@ -64,7 +64,7 @@ body {
 /* GENERAL STYLES */
 
 .container {
-  width: 80%;
+  width: 90%; /*width changed from 80 to 90*/
   margin: 0 auto;
 }
 
@@ -88,6 +88,7 @@ img {
   cursor: pointer;
   transition: all 300ms ease;
   font-size: 0.9rem;
+  /* max-width: fit-content; */
 }
 
 .btn:hover {

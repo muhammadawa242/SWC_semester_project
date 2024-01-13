@@ -1,16 +1,3 @@
-.theme {
-    position: relative;
-    top: 5.4rem;
-}
-  
-.theme .container {
-    display: grid;
-    position: relative;
-    grid-template-columns: 18vw auto 20vw;
-    column-gap: 2rem;
-}
-
-
 .customize-theme {
     background:rgba(255, 255, 255, 0.5);  
     width: 100vw;
@@ -23,7 +10,6 @@
     display: grid;
     place-items: center;
     font-size: 0.9rem;
-
     /* display: none; */
 }
 
@@ -32,6 +18,21 @@
   padding: 3rem;
   border-radius: var(--card-border-radius);
   width: 50%;
+  }
+
+  .customize-theme .card .cross-icons{
+    position: relative;
+    border-radius: 50%;
+    margin-left: 99%;
+    margin-top: -5%;
+    cursor: pointer;
+    color: var(--color-primary); /* Set the color you want for the close icon */
+  }
+
+  .customize-theme .card .cross-icons:hover{
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    opacity: 0.9;
   }
  
   /* FOnt Sizes */
