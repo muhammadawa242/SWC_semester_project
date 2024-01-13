@@ -87,7 +87,7 @@ const SignUp = () => {
       <h2>Sign Up</h2>
       <div className="name-fields">
         <div className="input-group">
-          <label>First Name:</label>
+          <label className="form-label">First Name:</label>
           <input
             type="text"
             value={firstName}
@@ -95,7 +95,7 @@ const SignUp = () => {
           />
         </div>
         <div className="input-group">
-          <label>Last Name:</label>
+          <label className="form-label">Last Name:</label>
           <input
             type="text"
             value={lastName}
@@ -104,7 +104,7 @@ const SignUp = () => {
         </div>
       </div>
       <div className="input-group">
-        <label>Location:</label>
+        <label className="form-label">Location:</label>
         <input
           type="text"
           value={location}
@@ -112,7 +112,7 @@ const SignUp = () => {
         />
       </div>
       <div className="input-group">
-        <label>Occupation:</label>
+        <label className="form-label">Occupation:</label>
         <input
           type="text"
           value={occupation}
@@ -120,7 +120,7 @@ const SignUp = () => {
         />
       </div>
       <div className="input-group">
-        <label>Email:</label>
+        <label className="form-label">Email:</label>
         <input
           type="email"
           value={email}
@@ -128,7 +128,7 @@ const SignUp = () => {
         />
       </div>
       <div className="input-group">
-        <label>Password:</label>
+        <label className="form-label">Password:</label>
         <input
           type="password"
           value={password}

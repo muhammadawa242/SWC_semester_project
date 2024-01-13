@@ -5,7 +5,7 @@ import ProfilePic from '../../assets/profile-1.jpg'
 function Navbar() {
   return (
     <nav>
-        <div className="container">
+        <div className="navcontainer">
 
           <h2 className="logo">
             AMS 
@@ -17,7 +17,7 @@ function Navbar() {
           </div>
 
           <div className="create">
-            <label htmlFor="create-post" className='btn btn-primary'>Create</label>
+            {/* <label htmlFor="create-post" className='btn btn-primary'>Create</label> */}
             <div className="profile-photo ">
               <img src={ProfilePic} alt="" />
             </div>
