@@ -1,3 +1,5 @@
+import aws from "aws-sdk";
+import multerS3 from "multer-s3";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -33,18 +35,37 @@ By using `app.use(cors())`, the application is allowing requests from any domain
 */ 
 app.use(cors());
 
+// this gives access to the public aws
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /* FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: process.env.AWS_REGION,
 });
-const upload = multer({ storage });
+
+const s3 = new aws.S3();
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    acl: 'public-read', // files to be publicly accessible
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      const baseName = path.basename(file.originalname, path.extname(file.originalname));
+
+      // unique name so that files don't get overwritten
+      const fileName = baseName + '-' + uniqueSuffix + path.extname(file.originalname);
+      
+      cb(null, fileName);
+    }
+  })
+});
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);

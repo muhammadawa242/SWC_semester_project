@@ -1,8 +1,10 @@
 import React from 'react'
 import './NavBar.css'
-import ProfilePic from '../../assets/profile-1.jpg'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
+  const imgName = useSelector(state => state.user.picturePath);
+
   return (
     <nav>
         <div className="navcontainer">
@@ -19,7 +21,7 @@ function Navbar() {
           <div className="create">
             {/* <label htmlFor="create-post" className='btn btn-primary'>Create</label> */}
             <div className="profile-photo ">
-              <img src={ProfilePic} alt="" />
+              <img src={`https://ams-hub-bucket.s3.ap-south-1.amazonaws.com/${imgName}`} alt="" />
             </div>
           </div>
 
