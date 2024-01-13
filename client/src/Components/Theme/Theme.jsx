@@ -1,18 +1,8 @@
 import React from 'react'
-// import './Theme.css'
-import Navbar from '../NavBar/Navbar'
-import Left from '../Left/Left'
-import Middle from '../Middle/Middle'
-import Right from '../Right/Right'
+import './Theme.css'
+
 const Theme = () => {
   return (
-    <div className='theme'>
-        <Navbar />
-        <div className="container">
-            <Left />
-            <Middle />
-            <Right />
-                {/* Theme Customization */}
                 <div className= "customize-theme">
               <div className= "card">
 
@@ -69,10 +59,9 @@ const Theme = () => {
                 </div>
               </div>   
           </div>
-        </div>
-
-    </div>
   )
 }
 
 export default Theme
+
+

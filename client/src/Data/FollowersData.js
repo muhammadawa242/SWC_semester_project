@@ -9,7 +9,7 @@ import Profile8 from '../assets/profile-8.jpg'
 import Profile9 from '../assets/profile-9.jpg'
 import Profile10 from '../assets/profile-10.jpg'
 
-export const Followers =[
+export const Followers = [
     {name:"John Mark", username:"john123", img:Profile1 },
     {name:"Elon Mask", username:"elon34", img:Profile2 },
     {name:"Darren Roy", username:"roy9", img:Profile3 },

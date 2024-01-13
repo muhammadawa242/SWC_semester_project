@@ -1,6 +1,7 @@
 main {
     position: relative;
     top: 5.4rem;
+    z-index: 1;
 }
   
 main .container {
@@ -8,5 +9,6 @@ main .container {
     position: relative;
     grid-template-columns: 18vw auto 22vw;
     column-gap: 2rem;
+
 }
 

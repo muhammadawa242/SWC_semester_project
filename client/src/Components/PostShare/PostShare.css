@@ -28,7 +28,14 @@
 .postOptions{
     display: flex;
     justify-content: space-around;
+    
 }
+
+.postOptions > div{
+    display: flex;
+    gap: 2rem;
+}
+
 
 .option{
     padding: .5rem 1rem;
@@ -38,10 +45,14 @@
     justify-content: center;
     font-size: 0.8rem;
     color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    gap: .5rem;
 }
 
 .option:hover{
     cursor: pointer;
+    background-color: var(--color-primary);
+    color: var(--color-white);
 }
 
 .previewImage{
@@ -53,7 +64,7 @@
     right: 1rem;
     top: 0.5rem;
     cursor: pointer;
-    color: red;
+    color: var(--color-primary);
 }
 
 .previewImage>img{
@@ -62,3 +73,33 @@
     object-fit: cover;
     border-radius: 0.5rem;
 }
+
+/* for vedio */
+.previewVideo{
+    position: relative;
+}
+
+.previewVideo>video{
+    width: 100%;
+    max-height:20rem ;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.previewVideo>svg{
+    position: absolute; 
+    right: 1rem;
+    top: 0.5rem; 
+    cursor: pointer;
+    color: var(--color-primary);
+    
+}
+
+/* .crossicon{
+    position: relative;
+    color: var(--color-primary);
+    z-index: 100;
+    top: 2rem;
+    left: 31rem;
+} */
+
