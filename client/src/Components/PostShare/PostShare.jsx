@@ -54,7 +54,6 @@ const PostShare = () => {
         <div className='share-field'>
             <input type="text" placeholder="What's happening" />
             <div className="postOptions">
-                <div>
                 <div className="option" onClick={()=>ImageRef.current.click()}>
                     <UilScenery />
                     <h3>Photo</h3>
@@ -64,9 +63,8 @@ const PostShare = () => {
                     <UilPlayCircle />
                     <h3>Video</h3>
                 </div>
-                </div>
-{/* 
-                <div className="option">
+
+                {/* <div className="option">
                     <UilLocationPoint />
                     <h3>Location</h3>
                 </div>
