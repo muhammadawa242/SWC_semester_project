@@ -16,7 +16,6 @@
     padding: var(--search-padding);
     border-radius: var(--card-border-radius);
     border: 1px solid var(--color-primary);
-    box-shadow: 0 0 .5rem var(--color-primary);
 }
 
 .follower>div{

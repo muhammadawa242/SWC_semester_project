@@ -1,10 +1,31 @@
 import React from 'react'
+import { useState } from 'react'
 import './Middle.css'
 import Picture from '../../assets/profile-8.jpg'
 import PostShare from '../PostShare/PostShare'
 import FeedPic from '../../assets/feed-3.jpg'
 
 function Middle() {
+
+    const [showComments, setShowComments] = useState(false);
+    const [newComment, setNewComment] = useState('');
+    const [comments, setComments] = useState([
+      { user: 'User1', text: 'Awesome post!', profileimg:Picture },
+      { user: 'User2', text: 'Nice picture!', profileimg:Picture },
+      // Add more initial comments if needed
+    ]);
+  
+    const handleNewCommentChange = (e) => {
+      setNewComment(e.target.value);
+    };
+  
+    const addComment = () => {
+      if (newComment.trim() !== '') {
+        setComments([...comments, { user: 'Current User', text: newComment }]);
+        setNewComment('');
+      }
+    };
+
   return (
     <div className="middle">   
         {/* Stories */}
@@ -99,7 +120,34 @@ function Middle() {
                 <div className="caption">
                     <p><b>UserName</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. <span className='hash-tag'>#lifestyle</span></p>
                 </div>
-                <div className='comments text-muted'>View All Comments</div>
+                {/* <div className='comments text-muted' onClick={showComments}>View All Comments</div> */}
+
+                    {showComments && (
+                    <div className="comments-container">
+                    {comments.map((comment, index) => (
+                        <div key={index} className="comment">
+                            <span><img className='profile-photo' src={comment.profileimg} alt="User Image" /></span>
+                            <div className='comment-info'>
+                                <b>{comment.user}</b> {comment.text}
+                            </div>
+                        </div>
+                    ))}
+                    <div className="add-comment">
+                        <img className='profile-photo' src={Picture} alt="Profile" />
+                        <input
+                        type="text"
+                        placeholder="Add a comment..."
+                        value={newComment}
+                        onChange={handleNewCommentChange}
+                        />
+                        <button className='btn btn-primary' onClick={addComment}>Post</button>
+                    </div>
+                    </div>
+                )}
+
+                <div className='comments text-muted' onClick={() => setShowComments(!showComments)}>
+                    {showComments ? 'Hide Comments' : 'View All Comments'}
+                </div>
                 
             </div>
         </div>
