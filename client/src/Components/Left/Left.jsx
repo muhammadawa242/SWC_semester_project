@@ -5,7 +5,7 @@ import Picture from '../../assets/profile-2.jpg'
 import ProfileCard from '../ProfileCard/ProfileCard';
 
 function Left() {
-  return (
+    return (
     <div className='left'>
       <Link to="/profile" className='profile'>
         <ProfileCard />
@@ -77,9 +77,9 @@ function Left() {
       </div>
 
       <label htmlFor="create-post" className='btn btn-primary'> Create Post </label>
-
-                {/* Theme Customization */}
-                <div className= "customize-theme">
+      
+{/* Theme Customization */}
+      <div className= "customize-theme">
               <div className= "card">
 
                 <h2>Customized your View</h2>
