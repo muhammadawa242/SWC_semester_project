@@ -9,6 +9,7 @@ import { setLogin } from "../../state";
 import {login} from "../../apis"
 import * as Yup from "yup";
 import "./Login.css"; // Import your CSS file
+import { set } from "mongoose";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -78,7 +79,10 @@ const Login = () => {
                 id="email"
                 name="email"
                 placeholder="Enter your email"
-                onChange={formik.handleChange}
+                onChange={(e)=>{
+                  setEmail(e.target.value);
+                  formik.handleChange(e);
+                }}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
               />
@@ -104,7 +108,10 @@ const Login = () => {
                 id="password"
                 name="password"
                 placeholder="Enter your password"
-                onChange={formik.handleChange}
+                onChange={(e)=>{
+                  setPassword(e.target.value);
+                  formik.handleChange(e);
+                }}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
               />
