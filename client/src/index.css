@@ -66,6 +66,7 @@ img {
   cursor: pointer;
   transition: all 300ms ease;
   font-size: 0.9rem;
+  /* max-width: fit-content; */
 }
 
 .btn:hover {
