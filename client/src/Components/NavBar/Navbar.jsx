@@ -1,15 +1,17 @@
 import React from 'react'
 import './NavBar.css'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const imgName = useSelector(state => state.user.picturePath);
+  const navigate = useNavigate();
 
   return (
     <nav>
         <div className="navcontainer">
 
-          <h2 className="logo">
+          <h2 className="logo" onClick={()=>{navigate("/home")}}>
             AMS 
           </h2>
 

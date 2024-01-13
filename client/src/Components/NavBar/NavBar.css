@@ -43,3 +43,8 @@ nav .create {
   align-items: center;
   gap: 2rem;
 }
+
+/* for logo class change cursor to pointer style */
+nav .logo {
+  cursor: pointer;
+}
