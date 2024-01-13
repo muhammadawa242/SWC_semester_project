@@ -73,6 +73,7 @@ function Middle() {
             </div>
         </div>
 
+        {/* POst Share Component */}
         <PostShare />
 
         {/* ---------------Feed ----------------- */}

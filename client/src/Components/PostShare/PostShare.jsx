@@ -39,8 +39,6 @@ const PostShare = () => {
     };
 
     useEffect(() => {
-        // You can perform any additional logic or actions when the video state changes
-        // For example, you might want to preview the video or do something else
         console.log('Video state changed:', video);
     }, [video]);
 
@@ -104,7 +102,6 @@ const PostShare = () => {
   )
 }
 
-// onClick={()=> {setImage(null)}} 
 export default PostShare
 
 

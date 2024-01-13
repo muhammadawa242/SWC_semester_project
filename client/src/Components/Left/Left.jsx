@@ -9,6 +9,10 @@ function Left() {
   const [isThemeVisible, setThemeVisible] = useState(false);
   const themeRef = useRef(null);
 
+  const handleCloseTheme = () => {
+    setThemeVisible(false);
+  };
+
   useEffect(() => {
     const handleClickOutsideTheme = (event) => {
       if (themeRef.current && !themeRef.current.contains(event.target)) {
@@ -95,7 +99,7 @@ function Left() {
       </div>
 
       <label htmlFor="create-post" className='btn btn-primary'> Create Post </label>
-      {isThemeVisible && <Theme ref={themeRef} />}
+      {isThemeVisible && <Theme onClose={handleCloseTheme} ref={themeRef} />}
     </div>
   )
 }
