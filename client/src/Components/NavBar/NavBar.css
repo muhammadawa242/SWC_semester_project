@@ -40,6 +40,12 @@ nav .search-bar input[type="search"]::placeholder {
 
 nav .create {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 2rem;
+
+}
+
+.dropdown{
+  background-color: black;
 }

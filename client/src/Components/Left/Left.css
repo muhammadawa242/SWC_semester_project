@@ -1,10 +1,12 @@
-main .container .left{
+.container .left{
     /* color: var(--color-dark); */
     position: sticky;
+    height: max-content;
+    top: var(--sticky-top-left);
+    color: var(--color-dark);
 }
 .left .profile {
     height: max-content;
-    top: var(--sticky-top-left);
     color: var(--color-dark);
   }
 
