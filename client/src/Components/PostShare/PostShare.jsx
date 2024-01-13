@@ -65,8 +65,8 @@ const PostShare = () => {
                     <h3>Video</h3>
                 </div>
                 </div>
-
-                {/* <div className="option">
+{/* 
+                <div className="option">
                     <UilLocationPoint />
                     <h3>Location</h3>
                 </div>
