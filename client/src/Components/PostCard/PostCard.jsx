@@ -1,43 +1,72 @@
 import React from 'react'
 import { useState } from 'react';
 import Picture from '../../assets/profile-8.jpg'
-import FeedPic from '../../assets/feed-3.jpg'
-import { Post } from '../../Data/Post';
+import { getPosts } from '../../apis';
+import {useDispatch} from 'react-redux'
+import { setPosts } from '../../state';
+import { useEffect } from 'react';
+import { useSelector } from "react-redux";
 
 const PostCard = () => {
+    const dispatch = useDispatch();
+    const token = useSelector((state) => state.token);
+    const posts = useSelector((state) => state.posts);
+    const aws = useSelector((state) => state.awsPath);
+
     const [showComments, setShowComments] = useState(false);
-    const [newComment, setNewComment] = useState('');
+    const [newComment, setNewComment] = useState([]);
     const [comments, setComments] = useState([
       { user: 'User1', text: 'Awesome post!', profileimg:Picture },
       { user: 'User2', text: 'Nice picture!', profileimg:Picture },
       // Add more initial comments if needed
     ]);
+
+    const handlePosts = async (token) => {
+        try{
+            const posts = await getPosts(token);
+            dispatch(
+                setPosts({
+                    posts: posts
+                })
+            )
+
+        }catch(err){
+            console.log("error in getting posts: " + err);
+        }
+    }
+
+    useEffect(() => {
+        handlePosts(token);
+    }, [])
+
   
     const handleNewCommentChange = (e) => {
       setNewComment(e.target.value);
     };
   
     const addComment = () => {
+        // my implemetation will be different
       if (newComment.trim() !== '') {
         setComments([...comments, { user: 'Current User', text: newComment }]);
         setNewComment('');
       }
     };
   return (
+
     <div>
-        {Post.map((posts,id)=>{
+        {posts.map((post)=>{
             return(
                 <div className="feed">
                 <div className="head">
                     <div className="user">
         
                         <div className="profile-photo">
-                            <img src={posts.profilepic}/>
+                            <img src={aws+post.userPicturePath}/>
                         </div>
         
                         <div className="info">
-                            <h3>{posts.fullname}</h3>
-                            <small>{posts.location} , {posts.Time}</small>
+                            <h3>{post.firstName+" "+post.lastName}</h3>
+                            <small>{post.createdAt.substring(0,10)}</small>
                         </div>
                     </div>
                     <span className='edit'>
@@ -46,7 +75,7 @@ const PostCard = () => {
                 </div>
         
                 <div className="photo">
-                    <img src={posts.postImage} alt="" />
+                    <img src={aws+post.picturePath} alt="" />
                 </div>
         
                 <div className="action-buttons">
@@ -61,24 +90,31 @@ const PostCard = () => {
                 </div>
         
                 <div className="liked-by">
-                    <span><img src={Picture} /></span>
-                    <span><img src={Picture} /></span>
-                    <span><img src={Picture} /></span>
-                    <p> Liked by <b>User Name 1</b> and <b>1234</b> others </p>
+                    {
+                        post.comments.map((comment, index) => (
+                            index < 4 ?
+                            <span key={`s${index}`}><img src={aws + comment.picturePath} /></span> :
+                            null
+                        ))
+                    }
+                    {/* Like button was not visible so just used comments for the purpose temporarily */}
+                    {post.comments.length !== 0 && (
+                        <p> Liked by <b>{post.comments[0].username}</b> and <b>{post.comments.length-1}</b> others </p>
+                    )}
                 </div>
         
                 <div className="caption">
-                    <p><b>UserName</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. <span className='hash-tag'>#lifestyle</span></p>
+                    <p><b>{post.firstName + " " + post.lastName}</b> {post.description} <span className='hash-tag'>#lifestyle</span></p>
                 </div>
                 {/* <div className='comments text-muted' onClick={showComments}>View All Comments</div> */}
         
                     {showComments && (
                     <div className="comments-container">
-                    {comments.map((comment, index) => (
+                    {post.comments.map((comment, index) => (
                         <div key={index} className="comment">
-                            <span><img className='profile-photo' src={comment.profileimg} alt="User Image" /></span>
+                            <span><img className='profile-photo' src={aws+comment.picturePath} alt="User Image" /></span>
                             <div className='comment-info'>
-                                <b>{comment.user}</b> {comment.text}
+                                <b>{comment.username}</b> {comment.text}
                             </div>
                         </div>
                     ))}

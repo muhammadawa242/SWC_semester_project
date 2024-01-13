@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux'
 
 const ProfileCard = () => {
     const user = useSelector((state) => state.user);
+    const aws = useSelector((state) => state.awsPath);
     const imgPath = user.picturePath;
     const followers = user.followers.length;
     const following = user.following.length;
     const fullname = user.firstName + ' ' + user.lastName;
     const username = user.email.substring(0, user.email.indexOf('@'));
 
-    const Profile = `https://ams-hub-bucket.s3.ap-south-1.amazonaws.com/${imgPath}`
+    const Profile = aws+imgPath;
 
     return (
     <div className="ProfileCard">

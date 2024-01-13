@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
+    awsPath: "https://ams-hub-bucket.s3.ap-south-1.amazonaws.com/",
     user: null,
     token: null,
     posts: []

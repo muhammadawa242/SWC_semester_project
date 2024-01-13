@@ -24,3 +24,20 @@ export const register = async (values) => {
   );
   return await savedUserResponse.json();
 };
+
+export const getPosts = async (token) => {
+  const response = await fetch("http://localhost:3001/posts", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await response.json();
+};
+
+export const createPost = async (token, formData) => {
+  const response = await fetch(`http://localhost:3001/posts`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  });
+  return await response.json();
+};
