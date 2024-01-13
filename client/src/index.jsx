@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.jsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App.jsx";
+import "./index.css";
 import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -31,15 +31,14 @@ const store = configureStore({
     }),
 });
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-   <React.StrictMode>
-      <Provider store={store}>
-         <PersistGate loading={null} persistor={persistStore(store)}>
-            <BrowserRouter>
-               <App />
-            </BrowserRouter>
-         </PersistGate>
-      </Provider>
-   </React.StrictMode>
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistStore(store)}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>
+);

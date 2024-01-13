@@ -80,67 +80,72 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-header">
-        <h2 style={{ color: "darkblue" }}>AMS HUB</h2>
-      </div>
-      <h2>Sign Up</h2>
-      <div className="name-fields">
+    <>
+      <div className="signup-background" />
+
+      <div className="signup-container">
+        {/* Background container for the blurred image */}
+        <div className="signup-header">
+          <h2 style={{ color: "darkblue" }}>AMS HUB</h2>
+        </div>
+        <h2>Sign Up</h2>
+        <div className="name-fields">
+          <div className="special-input-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="special-input-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="input-group">
-          <label className="form-label">First Name:</label>
+          <label>Location:</label>
           <input
             type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         </div>
         <div className="input-group">
-          <label className="form-label">Last Name:</label>
+          <label>Occupation:</label>
           <input
             type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={occupation}
+            onChange={(e) => setOccupation(e.target.value)}
           />
         </div>
+        <div className="input-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Profile Picture:</label>
+          <input type="file" accept="image/*" onChange={handleFileChange} name="picturePath" />
+        </div>
+        <button onClick={handleSignUp}>Sign Up</button>
       </div>
-      <div className="input-group">
-        <label className="form-label">Location:</label>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Occupation:</label>
-        <input
-          type="text"
-          value={occupation}
-          onChange={(e) => setOccupation(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label className="form-label">Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <label>Profile Picture:</label>
-        <input type="file" accept="image/*" onChange={handleFileChange} name="picturePath" />
-      </div>
-      <button onClick={handleSignUp}>Sign Up</button>
-    </div>
+    </>
   );
 };
 
