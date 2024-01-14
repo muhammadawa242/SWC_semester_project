@@ -44,14 +44,16 @@ const PostCard = () => {
   return (
 
     <div>
-        {posts.map((post)=>{
+        {posts.map((post) => {
             return(
                 <div className="feed">
                 <div className="head">
                     <div className="user">
         
                         <div className="profile-photo">
-                            <img src={aws+post.userPicturePath}/>
+                            {post.picturePath &&(
+                                <img src={aws+post.userPicturePath}/>
+                            )}
                         </div>
         
                         <div className="info">

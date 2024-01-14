@@ -6,12 +6,22 @@ import Right from '../Right/Right.jsx'
 import Middle from '../Middle/Middle.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { getPosts, getStories } from '../../apis'
-import { setPosts, setStories } from '../../state'
+import { getPosts, getStories, getUser } from '../../apis'
+import { setPosts, setStories, setUser } from '../../state'
 
 function Home() {
   const token = useSelector((state) => state.token);
+  const userId = useSelector((state) => state.user._id);
   const dispatch = useDispatch();
+
+  const handleUser = async (token, userId) => {
+      try{
+          const user = await getUser(token, userId);
+          dispatch(setUser({user: user}))
+      }catch(err){
+          console.log("error in getting user data: " + err);
+      }
+  }
 
   const handlePosts = async (token) => {
       try{
@@ -39,6 +49,7 @@ function Home() {
   useEffect(() => {
       handlePosts(token);
       handleStories(token);
+      handleUser(token, userId);
   }, [])
 
 
