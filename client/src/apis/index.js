@@ -41,3 +41,15 @@ export const createPost = async (token, formData) => {
   });
   return await response.json();
 };
+
+export const patchComment = async (token, postId, reqData) => {
+  const response = await fetch(`http://localhost:3001/posts/${postId}/comment`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reqData),
+  });
+  return await response.json();
+};

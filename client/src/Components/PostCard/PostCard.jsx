@@ -1,25 +1,21 @@
 import React from 'react'
 import { useState } from 'react';
-import Picture from '../../assets/profile-8.jpg'
-import { getPosts } from '../../apis';
+import { getPosts, patchComment } from '../../apis';
 import {useDispatch} from 'react-redux'
 import { setPosts } from '../../state';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { setPost } from '../../state';
 
 const PostCard = () => {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.token);
+    const user = useSelector((state) => state.user);
     const posts = useSelector((state) => state.posts);
     const aws = useSelector((state) => state.awsPath);
 
     const [showComments, setShowComments] = useState(false);
-    const [newComment, setNewComment] = useState([]);
-    const [comments, setComments] = useState([
-      { user: 'User1', text: 'Awesome post!', profileimg:Picture },
-      { user: 'User2', text: 'Nice picture!', profileimg:Picture },
-      // Add more initial comments if needed
-    ]);
+    const [newComment, setNewComment] = useState("");
 
     const handlePosts = async (token) => {
         try{
@@ -44,13 +40,26 @@ const PostCard = () => {
       setNewComment(e.target.value);
     };
   
-    const addComment = () => {
-        // my implemetation will be different
-      if (newComment.trim() !== '') {
-        setComments([...comments, { user: 'Current User', text: newComment }]);
-        setNewComment('');
-      }
+    const addComment = async (post) => {
+
+        if (newComment.trim() !== '') {
+            try{
+                const updatedPost = await patchComment(token, post._id, {
+                    username: user.firstName + " " + user.lastName,
+                    text: newComment,
+                    picturePath: user.picturePath
+                });
+
+                dispatch(setPost({ post: updatedPost }));
+
+            }catch(err){
+                console.log("error in adding comment: " + err);
+            }
+
+            setNewComment('');
+        }
     };
+
   return (
 
     <div>
@@ -119,14 +128,17 @@ const PostCard = () => {
                         </div>
                     ))}
                     <div className="add-comment">
-                        <img className='profile-photo' src={Picture} alt="Profile" />
+                        <img className='profile-photo' src={aws+user.picturePath} alt="Profile" />
                         <input
                         type="text"
                         placeholder="Add a comment..."
                         value={newComment}
                         onChange={handleNewCommentChange}
                         />
-                        <button className='btn btn-primary' onClick={addComment}>Post</button>
+                        <button className='btn btn-primary' onClick={(e)=>{
+                            e.preventDefault(),
+                            addComment(post)
+                        }}>Post</button>
                     </div>
                     </div>
                 )}
