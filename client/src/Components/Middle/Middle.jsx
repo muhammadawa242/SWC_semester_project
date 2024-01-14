@@ -1,44 +1,106 @@
-import React from 'react'
-import './Middle.css'
-// import Picture from '../../assets/profile-8.jpg'
-import PostShare from '../PostShare/PostShare'
-import PostCard from '../PostCard/PostCard'
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { getPosts, getStories } from '../../apis'
-import { setPosts, setStories } from '../../state'
+import React, { useEffect } from "react";
+import { useState } from "react";
+import "./Middle.css";
+import Picture from "../../assets/profile-8.jpg";
+import PostShare from "../PostShare/PostShare";
+import PostCard from "../PostCard/PostCard";
+import StoryPlayer from "../VideoPlayer/StoryPlayer";
 
 function Middle() {
-    const aws = useSelector((state) => state.awsPath);
-    const imgPath = useSelector((state) => state.user.picturePath);
-    const stories = useSelector((state) => state.stories);
-    const Picture = aws+imgPath;
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState(-1);
+  const [videosArray, setVideosArray] = useState(null);
 
-    return (
-        <div className="middle">   
-            {/* Stories */}
-            <div className="stories">
-                {/* Required: add some tag that plays the video provided in its src or url */}
-                {/* aws+stories.videoPath   ... gives the url for the video stored on cloud */}
-                <div className="story">
-                    <div className="profile-photo">
-                        <img src={Picture}/>
-                    </div>
-                    <p className="name" style={{ color: 'black' }}><b>Required: </b>add some tag here that plays the video provided in its src or url</p>
-                </div>
-            </div>
+  useEffect(() => {
+    setVideosArray([
+      "../../assets/bunny.mp4",
+      "https://www.youtube.com/watch?v=ct66klYyTNk",
+      "../../assets/bunny.mp4",
+    ]);
+  }, []);
 
-
-            {/* POst Share Component */}
-            <PostShare />
-            <div className="feeds">
-                {/* PostCard */}
-                <PostCard />
-            </div>
+  return (
+    <div className="middle">
+      {/* Stories */}
+      <div className="stories">
+        <div
+          onClick={(e) => {
+            console.log("something happened");
+            e.preventDefault();
+            setSelectedStoryIndex(0);
+          }}
+          className="story"
+        >
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
         </div>
-    )
+
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("story clicked.");
+            setSelectedStoryIndex(1);
+          }}
+          className="story"
+        >
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
+        </div>
+
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("story clicked.");
+            setSelectedStoryIndex(2);
+          }}
+          className="story"
+        >
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
+        </div>
+
+        <div className="story">
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
+        </div>
+
+        <div className="story">
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
+        </div>
+
+        <div className="story">
+          <div className="profile-photo">
+            <img src={Picture} />
+          </div>
+          <p className="name">Your Story</p>
+        </div>
+      </div>
+      {selectedStoryIndex >= 0 && (
+        <StoryPlayer
+          selectedStoryIndex={selectedStoryIndex}
+          setSelectedStoryIndex={setSelectedStoryIndex}
+          videosArray={videosArray}
+        />
+      )}
+      {/* POst Share Component */}
+
+      <PostShare />
+      <div className="feeds">
+        {/* PostCard */}
+        <PostCard />
+      </div>
+    </div>
+  );
 }
 
-export default Middle
-
-
+export default Middle;

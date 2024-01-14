@@ -12,6 +12,8 @@ import Profile from './Components/Profile/Profile.jsx'
 import Left from './Components/Left/Left.jsx'
 import Theme from './Components/Theme/Theme.jsx'
 
+
+
 function App() {
   const isAuth = Boolean(useSelector((state) => state.token));
 

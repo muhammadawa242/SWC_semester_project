@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { getPosts, getStories, getUser } from '../../apis'
 import { setPosts, setStories, setUser } from '../../state'
 
+
 function Home() {
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.user._id);
