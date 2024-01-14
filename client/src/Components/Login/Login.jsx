@@ -120,7 +120,7 @@ const Login = () => {
               ) : null}
             </div>
           </div>
-          <a href="#">
+          <a onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             Already have an account?
             <h3>Sign Up</h3>
           </a>

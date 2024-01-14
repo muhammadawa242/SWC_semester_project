@@ -47,7 +47,12 @@ const PostShare = () => {
             setVideo(null);
             setVideoFile(null);
         }
-    
+        else {
+            // for text post
+            const posts = await createPost(token, formData);
+            dispatch(setPosts({ posts }));
+        }
+
         setPostDescription("");
         setIsLoading(false);
       };
