@@ -11,38 +11,8 @@ import { setPosts, setStories } from '../../state'
 function Middle() {
     const aws = useSelector((state) => state.awsPath);
     const imgPath = useSelector((state) => state.user.picturePath);
-    const token = useSelector((state) => state.token);
     const stories = useSelector((state) => state.stories);
     const Picture = aws+imgPath;
-    const dispatch = useDispatch();
-
-    const handlePosts = async (token) => {
-        try{
-            const posts = await getPosts(token);
-            dispatch(setPosts({posts: posts}))
-        }catch(err){
-            console.log("error in getting posts: " + err);
-        }
-    }
-
-    const handleStories = async (token) => {
-        try{
-            const stories = await getStories(token);
-            dispatch(
-                setStories({
-                    stories: stories
-                })
-            )
-
-        }catch(err){
-            console.log("error in getting stories: " + err);
-        }
-    }
-
-    useEffect(() => {
-        handlePosts(token);
-        handleStories(token);
-    }, [])
 
     return (
         <div className="middle">   
