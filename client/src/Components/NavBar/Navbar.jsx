@@ -43,8 +43,7 @@ function Navbar() {
     <nav>
         <div className="navcontainer">
 
-          {/* <h2 className="logo" onClick={()=>{navigate("/home")}}> */}
-          <h2 className="logo"> AMS </h2>
+          <h2 className="logo" onClick={()=>{navigate("/home")}}> AMS </h2>
 
           <div className="search-bar">
             <i className="uil uil-search"></i>

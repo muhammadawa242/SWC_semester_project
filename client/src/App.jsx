@@ -11,6 +11,7 @@ import Bookmarks from './Components/Bookmarks/Bookmarks.jsx'
 import Profile from './Components/Profile/Profile.jsx'
 import Left from './Components/Left/Left.jsx'
 import Theme from './Components/Theme/Theme.jsx'
+import EditProfile from './Components/EditProfile/EditProfile.jsx'
 
 
 
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/bookmark" element={<Bookmarks />} />
           <Route exact path="/left" element={<Left />} />
           <Route exact path="/theme" element={<Theme />} />
+          <Route exact path="/editprofile" element={<EditProfile />} />
        </Routes>
 
     </div>

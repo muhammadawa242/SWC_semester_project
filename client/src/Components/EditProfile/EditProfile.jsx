@@ -1,8 +1,6 @@
 import React from "react";
 import "../Animate/animate.css";
 import "../Bootstrap/bootstrap/css/bootstrap.min.css";
-import "../Bootstrap/bootstrap/js/bootstrap.bundle.js";
-import "../Bootstrap/bootstrap/js/bootstrap.js";
 
 import "./EditProfile.css";
 
@@ -70,7 +68,7 @@ function EditProfile() {
                       <h6 className="mb-0">First Name</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
@@ -79,7 +77,7 @@ function EditProfile() {
                       <h6 className="mb-0">Last Name</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
@@ -88,7 +86,7 @@ function EditProfile() {
                       <h6 className="mb-0">Password</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
@@ -97,7 +95,7 @@ function EditProfile() {
                       <h6 className="mb-0">Email</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
@@ -106,7 +104,7 @@ function EditProfile() {
                       <h6 className="mb-0">Location</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
@@ -115,7 +113,7 @@ function EditProfile() {
                       <h6 className="mb-0">Occupation</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" value="" />
+                      <input type="text" className="form-control" />
                     </div>
                   </div>
 
