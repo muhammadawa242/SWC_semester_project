@@ -19,8 +19,8 @@ const PostCard = () => {
     const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
-        dispatch(setFollowingPosts({followingPosts: posts.filter(post => following.includes(post.userId))}))
-    }, [following])
+        dispatch(setFollowingPosts({followingPosts: posts.filter(post => following.includes(post.userId) || post.userId === user._id)}))
+    }, [following, posts])
 
 
     const handleNewCommentChange = (e) => {
