@@ -70,3 +70,12 @@ export const createVideoPost = async (token, formData) => {
   });
   return await response.json();
 };
+
+export const getUser = async (token, user_id) => {
+  const response = await fetch(`http://localhost:3001/users/${user_id}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return await response.json();
+};
