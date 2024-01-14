@@ -5,6 +5,7 @@ import Navbar from '../NavBar/Navbar.jsx'
 import Right from '../Right/Right.jsx'
 import Middle from '../Middle/Middle.jsx'
 
+
 function Home() {
   return (
     <main>

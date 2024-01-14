@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SignUp.css"; // Import the corresponding CSS file
+import StoryPlayer from "../VideoPlayer/StoryPlayer";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
