@@ -17,7 +17,9 @@ function Middle() {
         <div className="stories">
             <div className="story">
                 <div className="profile-photo">
-                    <img src={Picture}/>
+                    <a href="">
+                        <img src={Picture}/>
+                    </a>
                 </div>
                 <p className="name">Your Story</p>
             </div>

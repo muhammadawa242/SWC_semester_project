@@ -33,6 +33,14 @@ export const getPosts = async (token) => {
   return await response.json();
 };
 
+export const getStories = async (token) => {
+  const response = await fetch("http://localhost:3001/posts/stories", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await response.json();
+};
+
 export const createPost = async (token, formData) => {
   const response = await fetch(`http://localhost:3001/posts`, {
     method: "POST",

@@ -1,11 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { getPosts, postComment } from '../../apis';
+import { getPosts, postComment, getStories } from '../../apis';
 import {useDispatch} from 'react-redux'
-import { setPosts } from '../../state';
+import { setPosts, setPost, setStories } from '../../state';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
-import { setPost } from '../../state';
 
 const PostCard = () => {
     const dispatch = useDispatch();
@@ -31,8 +30,23 @@ const PostCard = () => {
         }
     }
 
+    const handleStories = async (token) => {
+        try{
+            const stories = await getStories(token);
+            dispatch(
+                setStories({
+                    stories: stories
+                })
+            )
+
+        }catch(err){
+            console.log("error in getting stories: " + err);
+        }
+    }
+
     useEffect(() => {
         handlePosts(token);
+        handleStories(token);
     }, [])
 
   

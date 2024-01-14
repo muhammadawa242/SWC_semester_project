@@ -52,8 +52,17 @@ export const createVideoPost = async (req, res) => {
 /* READ */
 export const getFeedPosts = async (req, res) => {
   try {
-    const post = await Post.find();
-    res.status(200).json(post);
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const getStories = async (req, res) => {
+  try {
+    const stories = await Story.find();
+    res.status(200).json(stories);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
