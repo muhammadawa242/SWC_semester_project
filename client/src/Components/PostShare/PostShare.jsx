@@ -52,15 +52,18 @@ const PostShare = () => {
         <div className='share-field'>
             <input type="text" placeholder="What's happening" />
             <div className="postOptions">
-                <div className="option" onClick={()=>ImageRef.current.click()}>
-                    <UilScenery />
-                    <h3>Photo</h3>
-                </div>
+                <div>
+                    <div className="option" onClick={()=>ImageRef.current.click()}>
+                        <UilScenery />
+                        <h3>Photo</h3>
+                    </div>
 
-                <div className="option" onClick={() => VideoRef.current.click()}>
-                    <UilPlayCircle />
-                    <h3>Video</h3>
+                    <div className="option" onClick={() => VideoRef.current.click()}>
+                        <UilPlayCircle />
+                        <h3>Video</h3>
+                    </div>
                 </div>
+                
 
                 {/* <div className="option">
                     <UilLocationPoint />
@@ -72,7 +75,8 @@ const PostShare = () => {
                     <h3>Schedule</h3>
                 </div> */}
 
-                <button type="submit" value="Post" className='btn btn-primary' >Share</button>
+                {/* <button type="submit" value="Post" className='btn btn-primary' >Share</button> */}
+                <input type="submit" value="Post" className='sharebutton' />
                 <div style={{display:"none"}}>
                     <input type="file" name='my-img' ref={ImageRef} onChange={onImageChange}/>
                     <input type="file" name="my-video" ref={VideoRef} onChange={onVideoChange} />
