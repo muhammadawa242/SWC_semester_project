@@ -5,7 +5,7 @@ import {
   getUsersByOccupation,
   getUsersByLocation,
   getUserFriends,
-  addRemoveFriend,
+  addRemoveFollower,
 } from "../controllers/users.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -19,6 +19,6 @@ router.get("/:str/search_location", getUsersByLocation);
 router.get("/:str/search_occupation", getUsersByOccupation);
 
 /* UPDATE */
-router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
+router.patch("/:userId/:personId", verifyToken, addRemoveFollower);
 
 export default router;

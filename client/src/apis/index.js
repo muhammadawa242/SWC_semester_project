@@ -62,6 +62,18 @@ export const postComment = async (token, postId, reqData) => {
   return await response.json();
 };
 
+export const addFollower = async (token, userId, followerId) => {
+  const response = await fetch(`http://localhost:3001/users/${userId}/${followerId}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    }
+  });
+
+  return await response.json();
+};
+
 export const createVideoPost = async (token, formData) => {
   const response = await fetch(`http://localhost:3001/posts/video`, {
     method: "POST",

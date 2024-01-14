@@ -67,32 +67,25 @@ export const getUsersByOccupation = async (req, res) => {
 };
 
 /* UPDATE */
-export const addRemoveFriend = async (req, res) => {
+export const addRemoveFollower = async (req, res) => {
   try {
-    const { id, friendId } = req.params;
-    const user = await User.findById(id);
-    const friend = await User.findById(friendId);
-
-    if (user.friends.includes(friendId)) {
-      user.friends = user.friends.filter((id) => id !== friendId);
-      friend.friends = friend.friends.filter((id) => id !== id);
+    const { userId, personId } = req.params;
+    const user = await User.findById(userId);
+    const person = await User.findById(personId);
+    
+    // if already following that person, unfollow
+    if (user.following.includes(personId)) {
+      user.following = user.following.filter((id) => id !== personId);
+      person.followers = person.followers.filter((id) => id !== userId);
     } else {
-      user.friends.push(friendId);
-      friend.friends.push(id);
+      user.following.push(personId);
+      person.followers.push(userId);
     }
-    await user.save();
-    await friend.save();
+    
+    const updatedUser = await user.save();
+    await person.save();
 
-    const friends = await Promise.all(
-      user.friends.map((id) => User.findById(id))
-    );
-    const formattedFriends = friends.map(
-      ({ _id, firstName, lastName, occupation, location, picturePath }) => {
-        return { _id, firstName, lastName, occupation, location, picturePath };
-      }
-    );
-
-    res.status(200).json(formattedFriends);
+    res.status(200).json(updatedUser);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
