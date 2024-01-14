@@ -38,7 +38,7 @@ const ProfileCard = () => {
 
                     <div className="follow">
                         <span>{following}</span>
-                        <span>Followings</span>
+                        <span>Following</span>
                     </div>
             </div>
             <hr />

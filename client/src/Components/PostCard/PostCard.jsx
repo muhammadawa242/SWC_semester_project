@@ -16,39 +16,6 @@ const PostCard = () => {
     const [showComments, setShowComments] = useState(false);
     const [newComment, setNewComment] = useState("");
 
-    const handlePosts = async (token) => {
-        try{
-            const posts = await getPosts(token);
-            dispatch(
-                setPosts({
-                    posts: posts
-                })
-            )
-
-        }catch(err){
-            console.log("error in getting posts: " + err);
-        }
-    }
-
-    const handleStories = async (token) => {
-        try{
-            const stories = await getStories(token);
-            dispatch(
-                setStories({
-                    stories: stories
-                })
-            )
-
-        }catch(err){
-            console.log("error in getting stories: " + err);
-        }
-    }
-
-    useEffect(() => {
-        handlePosts(token);
-        handleStories(token);
-    }, [])
-
   
     const handleNewCommentChange = (e) => {
       setNewComment(e.target.value);
