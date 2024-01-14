@@ -29,7 +29,7 @@ const FollowersCard = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [followers]);
 
     const handleFollow = async (follower_id) => {
         try {

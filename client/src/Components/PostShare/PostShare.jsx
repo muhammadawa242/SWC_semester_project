@@ -16,22 +16,23 @@ const PostShare = () => {
     const [image , setImage] = useState(null);
     const [imageFile , setImageFile] = useState(null);
     const ImageRef = useRef()
-    const {_id} = useSelector(state => state.user)
+    const {_id, picturePath} = useSelector(state => state.user)
     const token = useSelector(state => state.token)
     const [postDescription, setPostDescription] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     
     const handlePostCreation = async () => {
-        if (postDescription === "") {
-            return;
-        }
-
+        
         setIsLoading(true);
         const formData = new FormData();
-        formData.append("userId", _id);
-        formData.append("description", postDescription);
-
+        
         if (imageFile) {
+            formData.append("userId", _id);
+            formData.append("description", postDescription);
+            if (postDescription === "") {
+                return;
+            }
+
           formData.append("picture", imageFile);
           formData.append("picturePath", imageFile.name);
           const posts = await createPost(token, formData);
@@ -40,6 +41,7 @@ const PostShare = () => {
           setImageFile(null);
         }
         else if (videoFile) {
+            formData.append("userPicturePath", picturePath);
             formData.append("video", videoFile);
             formData.append("videoPath", videoFile.name);
             const stories = await createVideoPost(token, formData);

@@ -16,9 +16,10 @@ import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost, createVideoPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import {users, posts} from "./data/index.js";
+import {users, posts, stories} from "./data/index.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
+import Story from "./models/Story.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -91,5 +92,6 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
     // User.insertMany(users);
     // Post.insertMany(posts);
+    // Story.insertMany(stories);
   })
   .catch((error) => console.log(`${error} did not connect`));

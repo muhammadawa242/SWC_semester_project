@@ -43,12 +43,11 @@ export const createPost = async (req, res) => {
 
 export const createVideoPost = async (req, res) => {
   try {
-    const { userId, description } = req.body;
+    const { userPicturePath } = req.body;
     const videoPath = req.file ? req.file.key : null;
 
     const newStory = new Story({
-      userId,
-      description,
+      userPicturePath,
       videoPath
     });
     

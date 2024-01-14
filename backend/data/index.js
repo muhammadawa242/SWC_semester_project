@@ -13,6 +13,13 @@ const userIds = [
   new mongoose.Types.ObjectId(),
 ];
 
+const storyIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+]
+
+
 export const users = [
     {
       _id: userIds[0],
@@ -22,9 +29,11 @@ export const users = [
       password: "$2b$10$.GYYmBTcfnXzTZEGiPOsje3vM1JXeTxKFmeJbHJJhogy97saZLTlO",
       picturePath: "profile-1-1705146427400-364184307.jpg",
       location: "San Fran, CA",
+      followers: [userIds[1], userIds[2], userIds[3], userIds[4], userIds[5]].map((id) => id.toString()),
+      following: [userIds[1], userIds[2], userIds[3]].map((id) => id.toString()),
       occupation: "Software Engineer",
-      createdAt: 1115211422,
-      updatedAt: 1115211422,
+      createdAt: "1115211422",
+      updatedAt: "1115211422",
       __v: 0,
     },
     {
@@ -36,8 +45,8 @@ export const users = [
       picturePath: "profile-2-1705146472042-877041543.jpg",
       location: "New York, CA",
       occupation: "Degenerate",
-      createdAt: 1595589072,
-      updatedAt: 1595589072,
+      createdAt: "1595589072",
+      updatedAt: "1595589072",
       __v: 0,
     },
     {
@@ -49,8 +58,8 @@ export const users = [
       picturePath: "profile-3-1705146487987-166728258.jpg",
       location: "Canada, CA",
       occupation: "Data Scientist Hacker",
-      createdAt: 1288090662,
-      updatedAt: 1288090662,
+      createdAt: "1288090662",
+      updatedAt: "1288090662",
       __v: 0,
     },
     {
@@ -62,8 +71,8 @@ export const users = [
       picturePath: "profile-4-1705146498584-166040287.jpg",
       location: "Korea, CA",
       occupation: "Educator",
-      createdAt: 1219214568,
-      updatedAt: 1219214568,
+      createdAt: "1219214568",
+      updatedAt: "1219214568",
       __v: 0,
     },
     {
@@ -75,8 +84,8 @@ export const users = [
       picturePath: "profile-5-1705146507991-569852897.jpg",
       location: "Utah, CA",
       occupation: "Hacker",
-      createdAt: 1493463661,
-      updatedAt: 1493463661,
+      createdAt: "1493463661",
+      updatedAt: "1493463661",
       __v: 0,
     },
     {
@@ -88,8 +97,8 @@ export const users = [
       picturePath: "profile-6-1705146520884-385113698.jpg",
       location: "Los Angeles, CA",
       occupation: "Journalist",
-      createdAt: 1381326073,
-      updatedAt: 1381326073,
+      createdAt: "1381326073",
+      updatedAt: "1381326073",
       __v: 0,
     },
     {
@@ -101,8 +110,8 @@ export const users = [
       picturePath: "profile-7-1705146531722-115953676.jpg",
       location: "Chicago, IL",
       occupation: "Nurse",
-      createdAt: 1714704324,
-      updatedAt: 1642716557,
+      createdAt: "1714704324",
+      updatedAt: "1642716557",
       __v: 0,
     },
     {
@@ -114,8 +123,8 @@ export const users = [
       picturePath: "profile-8-1705146541324-86609889.jpg",
       location: "Washington, DC",
       occupation: "A Student",
-      createdAt: 1369908044,
-      updatedAt: 1359322268,
+      createdAt: "1369908044",
+      updatedAt: "1359322268",
       __v: 0,
   },
 ];
@@ -373,3 +382,30 @@ export const users = [
   ],
 },
 ];
+
+export const stories = [
+    {
+      _id: storyIds[0],
+      userPicturePath: 'profile-7-1705146531722-115953676.jpg',
+      videoPath: 'fear-1705195611835-668402116.mp4',
+      createdAt: "2024-01-14T01:26:53.766Z",
+      updatedAt: "2024-01-14T01:26:53.766Z",
+      __v: 0
+    },
+    {
+      _id: storyIds[1],
+      userPicturePath: 'profile-2-1705146472042-877041543.jpg',
+      videoPath: 'sinkInThe-1705195718493-214197066.mp4',
+      createdAt: "2024-01-14T01:28:41.925Z",
+      updatedAt: "2024-01-14T01:28:41.925Z",
+      __v: 0
+    },
+    {
+      _id: storyIds[2],
+      userPicturePath: 'profile-3-1705146487987-166728258.jpg',
+      videoPath: 'magic-1705195821876-757908389.mp4',
+      createdAt: "2024-01-14T01:30:26.674Z",
+      updatedAt: "2024-01-14T01:30:26.674Z",
+      __v: 0
+    }
+  ];

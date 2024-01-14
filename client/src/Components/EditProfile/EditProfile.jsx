@@ -1,6 +1,6 @@
 import React from "react";
 import "../Animate/animate.css";
-import "../Bootstrap/bootstrap/css/bootstrap.min.css";
+// import "../Bootstrap/bootstrap/css/bootstrap.min.css";
 
 import "./EditProfile.css";
 
