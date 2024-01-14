@@ -57,7 +57,7 @@ const PostCard = () => {
                     <div className="user">
         
                         <div className="profile-photo">
-                            {post.picturePath &&(
+                            {post.userPicturePath &&(
                                 <img src={aws+post.userPicturePath}/>
                             )}
                         </div>
