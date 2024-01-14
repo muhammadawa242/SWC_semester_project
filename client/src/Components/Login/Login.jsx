@@ -9,7 +9,6 @@ import { setLogin } from "../../state";
 import {login} from "../../apis"
 import * as Yup from "yup";
 import "./Login.css"; // Import your CSS file
-import { set } from "mongoose";
 
 const Login = () => {
   const navigate = useNavigate();
