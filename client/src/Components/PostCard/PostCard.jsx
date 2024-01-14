@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { getPosts, postComment, getStories } from '../../apis';
 import {useDispatch} from 'react-redux'
-import { setPosts, setPost, setStories } from '../../state';
+import { setPosts, setPost, setStories, setFollowingPosts } from '../../state';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
@@ -11,12 +11,18 @@ const PostCard = () => {
     const token = useSelector((state) => state.token);
     const user = useSelector((state) => state.user);
     const posts = useSelector((state) => state.posts);
+    const followingPosts = useSelector((state) => state.followingPosts);
     const aws = useSelector((state) => state.awsPath);
+    const following = useSelector((state) => state.user.following);
 
     const [showComments, setShowComments] = useState(false);
     const [newComment, setNewComment] = useState("");
 
-  
+    useEffect(() => {
+        dispatch(setFollowingPosts({followingPosts: posts.filter(post => following.includes(post.userId))}))
+    }, [following])
+
+
     const handleNewCommentChange = (e) => {
       setNewComment(e.target.value);
     };
@@ -44,7 +50,7 @@ const PostCard = () => {
   return (
 
     <div>
-        {posts.map((post) => {
+        {followingPosts.map((post) => {
             return(
                 <div className="feed">
                 <div className="head">
