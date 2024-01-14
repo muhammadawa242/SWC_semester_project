@@ -2,10 +2,42 @@ import React from "react";
 import { useFormik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { setLogin } from "../../state";
+import {login} from "../../apis"
 import * as Yup from "yup";
 import "./Login.css"; // Import your CSS file
+import { set } from "mongoose";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSignIn = async () => {
+    try{
+      const loggedIn = await login({
+        email: email,
+        password: password
+      });
+
+      if (loggedIn) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("/home");
+      }
+    }catch(err){
+      console.log("error in login scripting " + err);
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -47,7 +79,10 @@ const Login = () => {
                 id="email"
                 name="email"
                 placeholder="Enter your email"
-                onChange={formik.handleChange}
+                onChange={(e)=>{
+                  setEmail(e.target.value);
+                  formik.handleChange(e);
+                }}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
               />
@@ -73,7 +108,10 @@ const Login = () => {
                 id="password"
                 name="password"
                 placeholder="Enter your password"
-                onChange={formik.handleChange}
+                onChange={(e)=>{
+                  setPassword(e.target.value);
+                  formik.handleChange(e);
+                }}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
               />
@@ -82,11 +120,11 @@ const Login = () => {
               ) : null}
             </div>
           </div>
-          <a href="#">
+          <a onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             Already have an account?
             <h3>Sign Up</h3>
           </a>
-          <input type="submit" className="BUTTON" value="Login" />
+          <input type="submit" onClick={handleSignIn} className="BUTTON" value="Login" />
         </form>
       </div>
     </div>

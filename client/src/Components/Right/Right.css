@@ -1,4 +1,6 @@
 .right{
     height: max-content;
-    position: static;
+    position: sticky;
+    top: var(--stickt-top-right);
+    z-index: -1;
 }
