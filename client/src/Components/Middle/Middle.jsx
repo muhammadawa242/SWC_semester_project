@@ -5,17 +5,31 @@ import Picture from "../../assets/profile-8.jpg";
 import PostShare from "../PostShare/PostShare";
 import PostCard from "../PostCard/PostCard";
 import StoryPlayer from "../VideoPlayer/StoryPlayer";
+import { useSelector } from "react-redux";
+import { getStories } from "../../apis";
 
 function Middle() {
+  const token = useSelector((state) => state.token);
+  const aws = useSelector((state) => state.awsPath);
   const [selectedStoryIndex, setSelectedStoryIndex] = useState(-1);
   const [videosArray, setVideosArray] = useState(null);
 
   useEffect(() => {
-    setVideosArray([
-      "../../assets/bunny.mp4",
-      "https://www.youtube.com/watch?v=ct66klYyTNk",
-      "../../assets/bunny.mp4",
-    ]);
+    const fetchData = async () => {
+      try {
+        const stories = await getStories(token);
+        
+        const videosArray = stories.map((story) => {
+          return aws+story.videoPath;
+        });
+
+        setVideosArray(videosArray);
+      } catch (error) {
+        console.error("stories not loaded: " + error);
+      }
+    };
+    
+    setVideosArray(fetchData());
   }, []);
 
   return (

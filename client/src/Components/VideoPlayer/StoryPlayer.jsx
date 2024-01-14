@@ -8,6 +8,7 @@ import "./VideoPlayer.css";
 import BackspaceIcon from "@material-ui/icons/Backspace";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+
 const StoryPlayer = ({
   setSelectedStoryIndex,
   selectedStoryIndex,
