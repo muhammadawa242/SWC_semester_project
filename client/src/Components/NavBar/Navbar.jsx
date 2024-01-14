@@ -28,10 +28,10 @@ function Navbar() {
   const handleLogoutClick = () => {
     // Logout alert
     const confirmLogout = window.confirm('Are you sure you want to logout?');
+
     if (confirmLogout) {
-    // Perform logout logic here
-    // For example, redirect to the login page
-    // window.location.href = '/login'; // Replace with your actual logout logic
+      // Perform logout logic here
+      dispatch(setLogout());
     }
   };
 
@@ -44,10 +44,7 @@ function Navbar() {
         <div className="navcontainer">
 
           {/* <h2 className="logo" onClick={()=>{navigate("/home")}}> */}
-          <h2 className="logo" onClick={() => dispatch(setLogout())}>
-
-            AMS 
-          </h2>
+          <h2 className="logo"> AMS </h2>
 
           <div className="search-bar">
             <i className="uil uil-search"></i>
@@ -56,23 +53,21 @@ function Navbar() {
 
           <div className="create">
             {/* <label htmlFor="create-post" className='btn btn-primary'>Create</label> */}
-            <div className="profile-photo ">
+            <div className="profile-photo " onClick={handleProfileClick}>
               <img src={aws} alt="" />
             </div>
           </div>
 
+          {/* Dropdown Modal */}
+          {dropdownVisible && (
+          <ProfileDropdown
+            onClose={handleCloseModal}
+            onProfileLinkClick={handleProfileLinkClick}
+            onLogoutClick={handleLogoutClick}
+          />
+          )}
         </div>
-    
-
-        {/* Dropdown Modal */}
-        {dropdownVisible && (
-        <ProfileDropdown
-          onClose={handleCloseModal}
-          onProfileLinkClick={handleProfileLinkClick}
-          onLogoutClick={handleLogoutClick}
-        />
-        )}
-    </nav>
+  </nav>
   )
 }
 
