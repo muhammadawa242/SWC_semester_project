@@ -137,7 +137,7 @@ img {
   main .container .left {
     grid-column: 3/4;
     position: fixed;
-    bottom: 0;
+    top:40%;
     right: 0;
   }
 
