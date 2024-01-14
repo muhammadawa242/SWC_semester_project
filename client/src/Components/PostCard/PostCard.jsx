@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { getPosts, patchComment } from '../../apis';
+import { getPosts, postComment } from '../../apis';
 import {useDispatch} from 'react-redux'
 import { setPosts } from '../../state';
 import { useEffect } from 'react';
@@ -44,7 +44,7 @@ const PostCard = () => {
 
         if (newComment.trim() !== '') {
             try{
-                const updatedPost = await patchComment(token, post._id, {
+                const updatedPost = await postComment(token, post._id, {
                     username: user.firstName + " " + user.lastName,
                     text: newComment,
                     picturePath: user.picturePath

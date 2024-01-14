@@ -2,8 +2,8 @@ import React ,{useState , useRef , useEffect} from 'react'
 import './PostShare.css'
 import { useSelector } from 'react-redux'
 import {UilTimes, UilScenery , UilPlayCircle , UilLocationPoint , UilSchedule} from '@iconscout/react-unicons'
-import {createPost} from '../../apis';
-import { setPosts } from '../../state';
+import {createPost, createVideoPost} from '../../apis';
+import { setPosts, setStories } from '../../state';
 import { useDispatch } from 'react-redux';
 
 const PostShare = () => {
@@ -12,6 +12,7 @@ const PostShare = () => {
     const Picture = useSelector(state => state.awsPath) + imgName
     const [video, setVideo] = useState(null);
     const VideoRef = useRef();
+    const [videoFile , setVideoFile] = useState(null);
     const [image , setImage] = useState(null);
     const [imageFile , setImageFile] = useState(null);
     const ImageRef = useRef()
@@ -29,16 +30,24 @@ const PostShare = () => {
         const formData = new FormData();
         formData.append("userId", _id);
         formData.append("description", postDescription);
-        console.log(imageFile);
+
         if (imageFile) {
           formData.append("picture", imageFile);
           formData.append("picturePath", imageFile.name);
+          const posts = await createPost(token, formData);
+          dispatch(setPosts({ posts }));
+          setImage(null);
+          setImageFile(null);
+        }
+        else if (videoFile) {
+            formData.append("video", videoFile);
+            formData.append("videoPath", videoFile.name);
+            const stories = await createVideoPost(token, formData);
+            dispatch(setStories({ stories }));
+            setVideo(null);
+            setVideoFile(null);
         }
     
-        const posts = await createPost(token, formData);
-        dispatch(setPosts({ posts }));
-        setImage(null);
-        setImageFile(null);
         setPostDescription("");
         setIsLoading(false);
       };
@@ -70,6 +79,7 @@ const PostShare = () => {
             setVideo({
                 video: URL.createObjectURL(vid),
             });
+            setVideoFile(vid);
         }
     };
 

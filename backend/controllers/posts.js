@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import Story from "../models/Story.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
@@ -23,6 +24,26 @@ export const createPost = async (req, res) => {
 
     const post = await Post.find();
     res.status(201).json(post);
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
+
+export const createVideoPost = async (req, res) => {
+  try {
+    const { userId, description } = req.body;
+    const videoPath = req.file ? req.file.key : null;
+
+    const newStory = new Story({
+      userId,
+      description,
+      videoPath
+    });
+    
+    await newStory.save();
+
+    const stories = await Story.find();
+    res.status(201).json(stories);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }

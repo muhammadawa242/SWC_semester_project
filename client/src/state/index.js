@@ -4,7 +4,8 @@ const initialState = {
     awsPath: "https://ams-hub-bucket.s3.ap-south-1.amazonaws.com/",
     user: null,
     token: null,
-    posts: []
+    posts: [],
+    stories: [],
 };
 
 export const authSlice = createSlice({
@@ -28,9 +29,12 @@ export const authSlice = createSlice({
                 return post;
             });
             state.posts = updatedPosts;
-        }
+        },
+        setStories: (state, action) => {
+            state.stories = action.payload.stories;
+        },
     }
 });
 
 export default authSlice.reducer;
-export const {setLogin, setLogout, setPosts, setPost} = authSlice.actions;
+export const {setLogin, setLogout, setPosts, setPost, setStories} = authSlice.actions;

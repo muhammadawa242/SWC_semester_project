@@ -42,7 +42,7 @@ export const createPost = async (token, formData) => {
   return await response.json();
 };
 
-export const patchComment = async (token, postId, reqData) => {
+export const postComment = async (token, postId, reqData) => {
   const response = await fetch(`http://localhost:3001/posts/${postId}/comment`, {
     method: "PATCH",
     headers: {
@@ -50,6 +50,15 @@ export const patchComment = async (token, postId, reqData) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(reqData),
+  });
+  return await response.json();
+};
+
+export const createVideoPost = async (token, formData) => {
+  const response = await fetch(`http://localhost:3001/posts/video`, {
+    method: "POST",
+    headers: {Authorization: `Bearer ${token}`},
+    body: formData,
   });
   return await response.json();
 };
