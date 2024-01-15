@@ -90,3 +90,43 @@ export const addRemoveFollower = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, password, email, occupation, location } = req.body;
+    
+    // update user by id but avoid updating picturePath if no file is uploaded or password if no password is provided
+    let updatedUser = await User.findByIdAndUpdate(
+      id,
+      { firstName, lastName, email, occupation, location},
+      { new: true }
+    );
+
+    
+    if (password !== "") {
+      const salt = await bcrypt.genSalt(10);
+      password = await bcrypt.hash(password, salt);
+
+      updatedUser = await User.findByIdAndUpdate(
+        id,
+        { password},
+        { new: true }
+      );
+    }
+
+    if(req.file) {
+      updatedUser = await User.findByIdAndUpdate(
+        id,
+        { picturePath: req.file.key},
+        { new: true }
+      );
+    }
+
+    
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};

@@ -18,14 +18,25 @@ import EditProfile from './Components/EditProfile/EditProfile.jsx'
 function App() {
   const isAuth = Boolean(useSelector((state) => state.token));
 
+  const OtherPortPage = () => {
+		// You can use window.location.href to redirect to another port
+		window.location.href = "http://localhost:5174";
+		return null; // This is just a placeholder, won't be rendered
+	};
+
+
   return (
     <div className="app">
       <Routes>
           <Route path="/" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route exact path="/home" element={isAuth ? <Home /> : <Navigate to="/login" />} />
-          <Route exact path="/chat" element={isAuth ? <Chat /> : <Navigate to="/login" />} />
+          {/* <Route exact path="/chat" element={isAuth ? <Chat /> : <Navigate to="/login" />} /> */}
           <Route exact path="/profile" element={isAuth ? <Profile /> : <Navigate to="/login" />} />
+          <Route
+							path={"/chat"}
+							element={<OtherPortPage />}
+						/>
 
           {/* Do we need these routes?? */}
           <Route exact path="/navbar" element={<Navbar />} />

@@ -44,52 +44,8 @@ function Left() {
           <span><i className="uil uil-compass"></i></span><h3>Explore</h3>
         </NavLink>
 
-        <NavLink className="menu-item" id='notifications' to='/'>
-          <span><i className="uil uil-bell"><small className='notification-count'>+9</small></i></span><h3>Notification</h3>
-          {/* ------------Notification PopUP ----------------- */}
-          <div className="notifications-popup" >
-            <div>
-              <div className="profile-photo">
-                <img src={Picture} />
-              </div>
-
-              <div className="notification-body" >
-                <b>UserName</b> accepted your friend request
-                <small className='text-muted'> 2 DAYS AGO</small>
-              </div>
-            </div>
-
-            <div>
-              <div className="profile-photo">
-                <img src={Picture} />
-              </div>
-
-              <div className="notification-body">
-                <b>UserName</b> accepted your friend request
-                <small className='text-muted'> 2 DAYS AGO</small>
-              </div>
-            </div>
-
-            <div>
-              <div className="profile-photo">
-                <img src={Picture} />
-              </div>
-
-              <div className="notification-body">
-                <b>UserName</b> accepted your friend request
-                <small className='text-muted'> 2 DAYS AGO</small>
-              </div>
-            </div>
-            
-          </div>
-        </NavLink>
-
         <NavLink className="menu-item" to="/chat" >
-          <span><i className="uil uil-envelope-alt"><small className='notification-count'>6</small></i></span><h3>Messages</h3>
-        </NavLink>
-
-        <NavLink className="menu-item" to="/bookmark" >
-          <span><i className="uil uil-bookmark"></i></span><h3>Bookmark</h3>
+          <span><i className="uil uil-envelope-alt"><small className='notification-count'>6</small></i></span><h3><a href="http://localhost:5174/">Messages</a></h3>
         </NavLink>
 
         <div className="menu-item" onClick={() => setThemeVisible(!isThemeVisible)}>

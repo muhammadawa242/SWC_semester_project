@@ -2,11 +2,58 @@ import React from "react";
 import "../Animate/animate.css";
 // import "../Bootstrap/bootstrap/css/bootstrap.min.css";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../state"; 
+import { useNavigate } from "react-router-dom";
+import { updatedUser } from "../../apis";
+import { useState } from "react";
 import "./EditProfile.css";
 
 import Navbar from "../NavBar/Navbar";
 
 function EditProfile() {
+  const user = useSelector((state) => state.user);
+  const aws = useSelector((state) => state.awsPath);
+  const token = useSelector((state) => state.token);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userpicturePath = useSelector((state) => state.user.picturePath);
+
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [location, setLocation] = useState(user.location);
+  const [occupation, setOccupation] = useState(user.occupation);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState("");
+  const [picturePath, setPicturePath] = useState("");
+
+  const handleSave = async () => {
+    const values = {
+      firstName: firstName,
+      lastName: lastName,
+      location: location,
+      occupation: occupation,
+      email: email,
+      password: password,
+      picture: picturePath,
+      picturePath: picturePath.name
+    };
+
+    try {
+      const updatedData = await updatedUser(
+        token,
+        values,
+        user._id
+      );
+
+      dispatch(setUser({ user: updatedData }));
+      navigate("/home");
+      
+    } catch (err) {
+      console.log("error in setting user data: " + err);
+    }
+  }
+
   return (
     <div>
       <Navbar />
@@ -26,7 +73,7 @@ function EditProfile() {
                       style={{ marginLeft: "20px" }}
                     >
                       <img
-                        src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                        src={aws+userpicturePath}
                         alt="Admin"
                         className="rounded-circle p-1 bg-primary"
                         width="110"
@@ -68,7 +115,10 @@ function EditProfile() {
                       <h6 className="mb-0">First Name</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" 
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -77,7 +127,10 @@ function EditProfile() {
                       <h6 className="mb-0">Last Name</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" 
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -86,7 +139,10 @@ function EditProfile() {
                       <h6 className="mb-0">Password</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control"           
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -95,7 +151,10 @@ function EditProfile() {
                       <h6 className="mb-0">Email</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -104,7 +163,10 @@ function EditProfile() {
                       <h6 className="mb-0">Location</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" 
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -113,7 +175,10 @@ function EditProfile() {
                       <h6 className="mb-0">Occupation</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" 
+                        value={occupation}
+                        onChange={(e) => setOccupation(e.target.value)}
+                      />
                     </div>
                   </div>
 
@@ -132,7 +197,9 @@ function EditProfile() {
                         <input
                           type="file"
                           className="d-none"
-                          onChange={(e) => console.log(e.target.files[0].name)}
+                          name="picturePath"
+                          accept="image/*"
+                          onChange={(e) => setPicturePath(e.target.files[0])}
                         />
                       </label>
                     </div>
@@ -144,6 +211,7 @@ function EditProfile() {
                       <input
                         type="button"
                         className="btn btn-primary px-4"
+                        onClick={handleSave}
                         value="Save Changes"
                       />
                     </div>

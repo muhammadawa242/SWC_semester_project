@@ -25,10 +25,12 @@ const PostShare = () => {
         
         setIsLoading(true);
         const formData = new FormData();
-        
-        if (imageFile) {
+        if (!videoFile){
             formData.append("userId", _id);
             formData.append("description", postDescription);
+        }
+
+        if (imageFile) {
             if (postDescription === "") {
                 return;
             }

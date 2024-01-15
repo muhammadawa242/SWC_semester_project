@@ -12,6 +12,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
+import {updateUser} from "./controllers/users.js";
 import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost, createVideoPost } from "./controllers/posts.js";
@@ -73,6 +74,7 @@ const upload = multer({
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
+app.patch("/users/:id", verifyToken, upload.single("picture"), updateUser);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.post("/posts/video", verifyToken, upload.single("video"), createVideoPost);
 

@@ -2,12 +2,13 @@ import React from 'react'
 import './Home.css'
 import Left from '../Left/Left.jsx'
 import Navbar from '../NavBar/Navbar.jsx'
+import UserData from '../Data/UserData.jsx'
 import Right from '../Right/Right.jsx'
 import Middle from '../Middle/Middle.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getPosts, getStories, getUser } from '../../apis'
-import { setPosts, setStories, setUser } from '../../state'
+import { setPosts, setStories, setUser, setLogout } from '../../state'
 
 
 function Home() {
@@ -30,6 +31,7 @@ function Home() {
           dispatch(setPosts({posts: posts}))
       }catch(err){
           console.log("error in getting posts: " + err);
+          setLogout();
       }
   }
 
@@ -61,6 +63,7 @@ function Home() {
           <Left />
           <Middle />
           <Right />
+          <UserData />
         </div>
     </main>
   )

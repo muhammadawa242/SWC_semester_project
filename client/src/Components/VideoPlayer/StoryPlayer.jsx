@@ -48,7 +48,7 @@ const StoryPlayer = ({
           }}
           className="close-button"
         >
-          {<BackspaceIcon style={{ fontSize: 20, color: "white" }} />}
+          {<BackspaceIcon style={{ fontSize: 20, color: "blue" }} />}
         </button>
         <button
           onClick={(e) => {
@@ -61,7 +61,7 @@ const StoryPlayer = ({
           }}
           className="right-arrow-button"
         >
-          {<ArrowForwardIcon style={{ fontSize: 20, color: "white" }} />}
+          {<ArrowForwardIcon style={{ fontSize: 20, color: "blue" }} />}
         </button>
 
         <button
@@ -75,7 +75,7 @@ const StoryPlayer = ({
           }}
           className="left-arrow-button"
         >
-          {<ArrowBackIcon style={{ fontSize: 20, color: "white" }} />}
+          {<ArrowBackIcon style={{ fontSize: 20, color: "blue" }} />}
         </button>
         {/* <button onClick={() => setSelectedStory(null)} className="close-button">
           X

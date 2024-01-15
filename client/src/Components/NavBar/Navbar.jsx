@@ -23,6 +23,7 @@ function Navbar() {
     // You can perform any additional actions here before navigating to the profile page
     // For example, close the dropdown
     setDropdownVisible(false);
+    navigate('/editprofile');
   };
 
   const handleLogoutClick = () => {

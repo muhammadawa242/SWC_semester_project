@@ -23,6 +23,9 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             state.token = null;
+            state.posts = [];
+            state.followingPosts = [];
+            state.stories = []
         },
         setFollowingPosts: (state, action) => {
             state.followingPosts = action.payload.followingPosts;
