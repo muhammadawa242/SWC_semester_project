@@ -31,7 +31,7 @@ function Home() {
           dispatch(setPosts({posts: posts}))
       }catch(err){
           console.log("error in getting posts: " + err);
-          setLogout();
+        //   setLogout();
       }
   }
 
