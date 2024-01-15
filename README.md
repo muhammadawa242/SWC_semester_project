@@ -78,6 +78,3 @@ Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUT
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
-Please replace placeholders like `frontend` and `backend` with your actual project folder names. If your project has additional features or configurations, make sure to include them in the README. Additionally, you might want to add a `CONTRIBUTING.md` file if you want to provide guidelines for contributors. Adjust the license section based on your preferred license.
