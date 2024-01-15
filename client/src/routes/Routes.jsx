@@ -1,16 +1,14 @@
 import { useContext } from "react";
 import { UserContext } from "../components/UserContext";
-import Chat from "../scenes/Chat";
-import ErrorPage from "../scenes/ErrorPage";
+import ChatChanged from "../scenes/ChatChanged";
 import Test from "../scenes/Test";
 
 export default function Routes() {
 	const { email } = useContext(UserContext);
 
-
 	if (email) {
-		return <Chat/>
+		return <ChatChanged />;
 	} else {
-		<ErrorPage />;
+		return <Test />;
 	}
 }

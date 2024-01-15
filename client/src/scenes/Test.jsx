@@ -4,7 +4,7 @@ import React from "react";
 function Test() {
 	return (
 		<div className="App">
-			<h1>React Props Example</h1>
+			<h1 className="text-center font-bold">Loading.....</h1>
 		</div>
 	);
 }

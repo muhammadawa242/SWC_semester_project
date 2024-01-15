@@ -1,24 +1,26 @@
 import axios from "axios";
 import { uniqBy } from "lodash";
 import { useContext, useEffect, useRef, useState } from "react";
+import CarouselComp from "../components/Carousel";
+import NavBar from "../components/NavBar";
 import { UserContext } from "../components/UserContext";
-import Logo from "./Logo";
-import Contact from "./Person";
+
 const props = {
 	className: "my-svg",
 	// other props...
 };
 
-export default function Chat() {
+export default function ChatChanged() {
 	const [ws, setWs] = useState(null); //this is to set the state of the WebSocket object
 	const [offlinePeople, setOfflinePeople] = useState({}); //this is to set the state of offline people
 	const [onlinePeople, setOnlinePeople] = useState({}); //this is to set the state of online people
-	const [selectedUserId, setSelectedUserId] = useState(null); //this is to set the state of selected user
-	const { email, id, setEmail, setId } = useContext(UserContext); //this is to get the username and id from the UserContext
-	// const { email, setEmail } = useContext(userData);
+	const { selectedUserId, setSelectedUserId } = useContext(UserContext); //this is to set the state of selected user
+	const { id, email, setId, setEmail } = useContext(UserContext); //this is to get the username and id from the UserContext
+	//  const { email, setEmail } = useContext(UserContext);
 	const [messages, setMessages] = useState([]); //this is to set the state of messages
 	const [newMessage, setNewMessage] = useState(""); //this is to set the state of new message
 	const divUnderMessages = useRef(); //this is to scroll to the bottom of the messages
+	const [allUsersEmail, setAllUsersEmail] = useState([]);
 
 	useEffect(() => {
 		connectToWs();
@@ -95,6 +97,8 @@ export default function Chat() {
 					_id: Date.now(),
 				},
 			]); //this is to show the message on the screen
+
+			console.log("check messages.text", newMessage.text);
 		}
 	}
 
@@ -116,8 +120,35 @@ export default function Chat() {
 		};
 	}
 
+	// const allUsersEmail = [];
+
 	useEffect(() => {
 		axios.get("/people").then((res) => {
+			const users = res.data; // Access the data property
+			var i = 0;
+
+			if (Array.isArray(res)) {
+				users.forEach((data) => {
+					allUsersEmail[i] = data.email;
+					i++;
+				});
+			} else if (typeof res === "object") {
+				// If res is an object, get an array of its values
+				const values = Object.values(res);
+
+				users.forEach((data) => {
+					allUsersEmail[i] = data.email;
+					i++;
+				});
+			} else {
+				console.error(
+					"Invalid data structure. Cannot extract emails."
+				);
+			}
+			// delete allUsersEmail[]
+			setAllUsersEmail(allUsersEmail);
+			console.log("users for ChatChanged: ", allUsersEmail);
+
 			const offlinePeopleArr = res.data //this is an array of people
 				.filter((p) => p._id !== id) //this is to filter out the current user
 				.filter((p) => !Object.keys(onlinePeople).includes(p._id)); //this is to filter out the people who are already online
@@ -131,6 +162,7 @@ export default function Chat() {
 	}, [onlinePeople]); //this funciton is run everytime online people changes. and online people changes everytime i refresh the page too.
 
 	useEffect(() => {
+		console.log("check messages.text at messages", messages.text);
 		const div = divUnderMessages.current; //this is to scroll to the bottom of the messages
 		if (div) {
 			div.scrollIntoView({ behavior: "smooth", block: "end" }); //this is to scroll to the bottom of the messages
@@ -138,6 +170,14 @@ export default function Chat() {
 	}, [messages]);
 
 	useEffect(() => {
+		try {
+			console.log(
+				"check messages.text at selectedUserId",
+				messagesWithoutDupes[0]
+			);
+		} catch (error) {
+			console.log("at 1190");
+		}
 		//this is the effect that will run when the selected user changes
 		if (selectedUserId) {
 			//helps to print the previous messages when the user is selected
@@ -154,76 +194,38 @@ export default function Chat() {
 	const messagesWithoutDupes = uniqBy(messages, "_id");
 
 	return (
-		<div className="flex h-screen">
-			<div className="bg-white w-1/5 flex flex-col">
-				<div className="flex-grow">
-					{/* //send the links to the bottom of the page */}
-					<Logo />
-					{Object.keys(onlinePeopleExclOurUser).map(
-						(userId) =>
-							onlinePeopleExclOurUser[userId] && (
-								<Contact
-									id={userId}
-									online={true}
-									email={
-										onlinePeopleExclOurUser[
-											userId
-										]
-									}
-									onClick={() =>
-										setSelectedUserId(userId)
-									}
-									selected={
-										userId === selectedUserId
-									}
-								/>
-							)
-					)}
+		<div className="flex flex-col h-screen">
+			<div>
+				<NavBar />
 
-					{Object.keys(offlinePeople).map(
-						(userId) =>
-							offlinePeople[userId].email && (
-								<Contact
-									id={userId}
-									online={false}
-									email={
-										offlinePeople[userId].email //check if changing username to email is legit
-									}
-									onClick={() =>
-										setSelectedUserId(userId)
-									}
-									selected={
-										userId === selectedUserId
-									}
-								/>
-							)
-					)}
-				</div>
+				<header className="bg-white shadow">
+					<div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+						<h1 className="text-3xl font-bold tracking-tight text-gray-800">
+							Messenger
+						</h1>
+					</div>
+				</header>
 
-				<div className="p-2 pb-7 text-center">
-					<span className="block pb-3">
-						Logged in as <strong>{email}</strong>
-					</span>
-					<button
-						className="text-white bg-gray-600 p-2 rounded-md"
-						onClick={logout}
-					>
-						LOGOUT
-					</button>
+				<div className="">
+					<CarouselComp
+						onlinePeopleExclOurUser={onlinePeopleExclOurUser}
+						offlinePeople={offlinePeople}
+						selectedUserId={selectedUserId}
+					/>
 				</div>
 			</div>
 
-			<div className="flex flex-col bg-zinc-800 w-4/5 p-2">
-				<div className="flex-grow">
+			<div className="flex flex-col h-full bg-gray-800 p-2">
+				<div className="flex-grow ">
 					{!selectedUserId && (
 						<div className="flex h-full flex-grow items-center justify-center">
-							<div className="text-3xl text-gray-500 font-mono uppercase">
-								&larr; SELECT A PERSON FROM THE SIDEBAR
+							<div className="text-3xl text-gray-400 font-mono uppercase">
+								&uarr; SELECT A PERSON FROM ABOVE
 							</div>
 						</div>
 					)}
 					{!!selectedUserId && (
-						<div className="relative h-full">
+						<div className="relative h-full ">
 							<div className="overflow-y-scroll absolute top-0 left-0 right-0 bottom-2">
 								{messagesWithoutDupes.map((message) => (
 									//in this function i can check whether if the id
@@ -247,6 +249,7 @@ export default function Chat() {
 											}
 										>
 											{message.text}
+
 											{message.file && (
 												<div>
 													<a
@@ -275,8 +278,9 @@ export default function Chat() {
 					)}
 				</div>
 				{!!selectedUserId && (
+					<div className="flex justify-center items-center">
 					<form
-						className="flex gap-2 mx-2"
+						className="flex gap-2 mx-auto w-screen max-w-7xl px-4 py-6 sm:px-6 lg:px-8"
 						onSubmit={sendMessage}
 					>
 						<input
@@ -328,10 +332,10 @@ export default function Chat() {
 								/>
 							</svg>
 						</button>
-					</form>
+						</form>
+						</div>
 				)}
 			</div>
 		</div>
 	);
 }
-// 2:18:16

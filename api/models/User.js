@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-const UserModel = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
 
-module.exports =  UserModel;
+module.exports =  User;
 // module.exports = UserModel; // directly exporting the userModel threw an error on the nodemon terminal
