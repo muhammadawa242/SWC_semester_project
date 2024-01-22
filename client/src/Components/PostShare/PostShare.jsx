@@ -103,12 +103,12 @@ const PostShare = () => {
             <input type="text" placeholder="What's happening" value={postDescription} onChange={(e) => setPostDescription(e.target.value)} />
             <div className="postOptions">
                 <div>
-                    <div className="option" onClick={()=>ImageRef.current.click()}>
+                    <div className="option" onClick={()=> VideoRef.current.click()}>
                         <UilScenery />
                         <h3>Photo</h3>
                     </div>
 
-                    <div className="option" onClick={() => VideoRef.current.click()}>
+                    <div className="option" onClick={() => ImageRef.current.click()}>
                         <UilPlayCircle />
                         <h3>Video</h3>
                     </div>

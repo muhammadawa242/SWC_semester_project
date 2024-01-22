@@ -18,7 +18,7 @@ function Explore() {
           {/* <PostShare /> */}
           <div className="feeds">
             {/* PostCard */}
-            {/* <PostCard /> */}
+            <PostCard />
           </div>
 
           <Ads />
